@@ -32,7 +32,7 @@ static void assert_print_number(const char *expected, double input)
     buffer.buffer = printed;
     buffer.length = sizeof(printed);
     buffer.offset = 0;
-    buffer.noalloc = true;
+    buffer.noalloc = cJSON_True;
     buffer.hooks = global_hooks;
 
     memset(item, 0, sizeof(item));

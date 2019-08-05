@@ -31,7 +31,7 @@ static void assert_print_string(const char *expected, const char *input)
     buffer.buffer = printed;
     buffer.length = sizeof(printed);
     buffer.offset = 0;
-    buffer.noalloc = true;
+    buffer.noalloc = cJSON_True;
     buffer.hooks = global_hooks;
 
     TEST_ASSERT_TRUE_MESSAGE(print_string_ptr((const unsigned char*)input, &buffer), "Failed to print string.");

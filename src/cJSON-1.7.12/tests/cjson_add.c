@@ -160,12 +160,12 @@ static void cjson_add_bool_should_add_bool(void)
     cJSON *false_item = NULL;
 
     /* true */
-    cJSON_AddBoolToObject(root, "true", true);
+    cJSON_AddBoolToObject(root, "true", cJSON_True);
     TEST_ASSERT_NOT_NULL(true_item = cJSON_GetObjectItemCaseSensitive(root, "true"));
     TEST_ASSERT_EQUAL_INT(true_item->type, cJSON_True);
 
     /* false */
-    cJSON_AddBoolToObject(root, "false", false);
+    cJSON_AddBoolToObject(root, "false", cJSON_False);
     TEST_ASSERT_NOT_NULL(false_item = cJSON_GetObjectItemCaseSensitive(root, "false"));
     TEST_ASSERT_EQUAL_INT(false_item->type, cJSON_False);
 
@@ -176,8 +176,8 @@ static void cjson_add_bool_should_fail_with_null_pointers(void)
 {
     cJSON *root = cJSON_CreateObject();
 
-    TEST_ASSERT_NULL(cJSON_AddBoolToObject(NULL, "false", false));
-    TEST_ASSERT_NULL(cJSON_AddBoolToObject(root, NULL, false));
+    TEST_ASSERT_NULL(cJSON_AddBoolToObject(NULL, "false", cJSON_False));
+    TEST_ASSERT_NULL(cJSON_AddBoolToObject(root, NULL, cJSON_False));
 
     cJSON_Delete(root);
 }
@@ -188,7 +188,7 @@ static void cjson_add_bool_should_fail_on_allocation_failure(void)
 
     cJSON_InitHooks(&failing_hooks);
 
-    TEST_ASSERT_NULL(cJSON_AddBoolToObject(root, "false", false));
+    TEST_ASSERT_NULL(cJSON_AddBoolToObject(root, "false", cJSON_False));
 
     cJSON_InitHooks(NULL);
 

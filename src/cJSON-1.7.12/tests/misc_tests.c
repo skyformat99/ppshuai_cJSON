@@ -353,12 +353,12 @@ static void cjson_functions_shouldnt_crash_with_null_pointers(void)
 
     cJSON_InitHooks(NULL);
     TEST_ASSERT_NULL(cJSON_Parse(NULL));
-    TEST_ASSERT_NULL(cJSON_ParseWithOpts(NULL, NULL, true));
+    TEST_ASSERT_NULL(cJSON_ParseWithOpts(NULL, NULL, cJSON_True));
     TEST_ASSERT_NULL(cJSON_Print(NULL));
     TEST_ASSERT_NULL(cJSON_PrintUnformatted(NULL));
-    TEST_ASSERT_NULL(cJSON_PrintBuffered(NULL, 10, true));
-    TEST_ASSERT_FALSE(cJSON_PrintPreallocated(NULL, buffer, sizeof(buffer), true));
-    TEST_ASSERT_FALSE(cJSON_PrintPreallocated(item, NULL, 1, true));
+    TEST_ASSERT_NULL(cJSON_PrintBuffered(NULL, 10, cJSON_True));
+    TEST_ASSERT_FALSE(cJSON_PrintPreallocated(NULL, buffer, sizeof(buffer), cJSON_True));
+    TEST_ASSERT_FALSE(cJSON_PrintPreallocated(item, NULL, 1, cJSON_True));
     cJSON_Delete(NULL);
     cJSON_GetArraySize(NULL);
     TEST_ASSERT_NULL(cJSON_GetArrayItem(NULL, 0));
@@ -422,9 +422,9 @@ static void cjson_functions_shouldnt_crash_with_null_pointers(void)
     cJSON_ReplaceItemInObjectCaseSensitive(NULL, "item", item);
     cJSON_ReplaceItemInObjectCaseSensitive(item, NULL, item);
     cJSON_ReplaceItemInObjectCaseSensitive(item, "item", NULL);
-    TEST_ASSERT_NULL(cJSON_Duplicate(NULL, true));
-    TEST_ASSERT_FALSE(cJSON_Compare(item, NULL, false));
-    TEST_ASSERT_FALSE(cJSON_Compare(NULL, item, false));
+    TEST_ASSERT_NULL(cJSON_Duplicate(NULL, cJSON_True));
+    TEST_ASSERT_FALSE(cJSON_Compare(item, NULL, cJSON_False));
+    TEST_ASSERT_FALSE(cJSON_Compare(NULL, item, cJSON_False));
     cJSON_Minify(NULL);
     /* skipped because it is only used via a macro that checks for NULL */
     /* cJSON_SetNumberHelper(NULL, 0); */
@@ -441,7 +441,7 @@ static void * CJSON_CDECL failing_realloc(void *pointer, size_t size)
 
 static void ensure_should_fail_on_failed_realloc(void)
 {
-    printbuffer buffer = {NULL, 10, 0, 0, false, false, {&malloc, &free, &failing_realloc}};
+    printbuffer buffer = {NULL, 10, 0, 0, cJSON_False, cJSON_False, {&malloc, &free, &failing_realloc}};
     buffer.buffer = (unsigned char*)malloc(100);
     TEST_ASSERT_NOT_NULL(buffer.buffer);
 

@@ -44,24 +44,24 @@ static void assert_print_object(const char * const expected, const char * const 
     formatted_buffer.buffer = printed_formatted;
     formatted_buffer.length = sizeof(printed_formatted);
     formatted_buffer.offset = 0;
-    formatted_buffer.noalloc = true;
+    formatted_buffer.noalloc = cJSON_True;
     formatted_buffer.hooks = global_hooks;
 
     /* buffer for unformatted printing */
     unformatted_buffer.buffer = printed_unformatted;
     unformatted_buffer.length = sizeof(printed_unformatted);
     unformatted_buffer.offset = 0;
-    unformatted_buffer.noalloc = true;
+    unformatted_buffer.noalloc = cJSON_True;
     unformatted_buffer.hooks = global_hooks;
 
     memset(item, 0, sizeof(item));
     TEST_ASSERT_TRUE_MESSAGE(parse_object(item, &parsebuffer), "Failed to parse object.");
 
-    unformatted_buffer.format = false;
+    unformatted_buffer.format = cJSON_False;
     TEST_ASSERT_TRUE_MESSAGE(print_object(item, &unformatted_buffer), "Failed to print unformatted string.");
     TEST_ASSERT_EQUAL_STRING_MESSAGE(input, printed_unformatted, "Unformatted object is not correct.");
 
-    formatted_buffer.format = true;
+    formatted_buffer.format = cJSON_True;
     TEST_ASSERT_TRUE_MESSAGE(print_object(item, &formatted_buffer), "Failed to print formatted string.");
     TEST_ASSERT_EQUAL_STRING_MESSAGE(expected, printed_formatted, "Formatted ojbect is not correct.");
 

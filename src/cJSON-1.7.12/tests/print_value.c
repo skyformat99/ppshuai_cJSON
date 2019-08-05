@@ -37,7 +37,7 @@ static void assert_print_value(const char *input)
     buffer.buffer = printed;
     buffer.length = sizeof(printed);
     buffer.offset = 0;
-    buffer.noalloc = true;
+    buffer.noalloc = cJSON_True;
     buffer.hooks = global_hooks;
 
     parsebuffer.content = (const unsigned char*)input;
